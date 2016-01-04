@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BetterWEP
 // @namespace    http://emakina.nl
-// @version      0.1
+// @version      0.1.1
 // @description  Makes naviwep less terrible
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
