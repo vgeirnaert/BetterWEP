@@ -6,14 +6,16 @@
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
 // @grant        none
-// @require       http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js
+// @resource     betterWEP_css https://raw.githubusercontent.com/vgeirnaert/BetterWEP/master/BetterWEP.css 
 // ==/UserScript==
 
 function betterWep() {
     // initialise
     
-    // reduce size of text areas
-	jQuery('textarea').attr('rows', 2);
+    // load css file
+    var betterWEP_css = GM_getResourceText("betterWEP_css");
+    GM_addStyle(betterWEP_css);
     
     // add form
    /* $('#MainDiv').append('<form id="betterWep_form" style="float:left"></form>');
@@ -27,4 +29,5 @@ function betterWep_add() {
     alert('woei');
 }
 
+// called on page load
 betterWep();
