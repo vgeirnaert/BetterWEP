@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BetterWEP
 // @namespace    http://emakina.nl
-// @version      0.1.5
+// @version      0.1.6
 // @description  Makes naviwep less terrible
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
@@ -21,20 +21,14 @@ function betterWep() {
     var betterWEP_css = GM_getResourceText("betterWEP_css");
     GM_addStyle(betterWEP_css);
     
-    // add form
-   /* $('#MainDiv').append('<form id="betterWep_form" style="float:left"></form>');
-    $('#betterWep_form').append('<select name="activity"></select>');
-    $('#betterWep_form').append('<select name="type"></select>');
-    $('#betterWep_form').append('<button id="betterWep_add">Add line</button>');
-    $('#betterWep_add').click(betterWep_add);*/
-    
+    // add search box to bottom row
     var tableBottom = $('#ContentDiv table.MainTable tbody tr th').first().parent().prev();
     bottomTableRow = $('<tr><td colspan="7"><input type="text" id="inlineTaskName" name="inlineTaskName"><input type="button" value="Add" id="inlineTaskButton"></td></tr>');
     tableBottom.after(bottomTableRow);
     
-    
     // add character limit textbox
     $('#MainDiv').append('Character limit: <input type="number" id="charlimit" value="50" name="charlimit" size="4">');
+    
     // bind onchange events
     $('#charlimit').on('change', function(e) {
         console.log("charlimit changed");
@@ -81,8 +75,13 @@ function checkTextArea(textArea) {
 
 function findTask() {
     var code = $('#inlineTaskName').val();
-    var element = $('<tr><td colspan="7">' + code + '</td></tr>');
-    bottomTableRow.before(element);
+
+    // open search results in popup window
+    $.post("https://naviweb.emakina.nl/registration/reg_activity_project_search.asp", "projectIndex="+code+"&Submit1=Search").done(function (data) {
+        var w = window.open('about:blank', 'windowname', 'fullscreen=no, height=500, width=1200, menubar=no, resizable=yes, toolbar=no');
+        w.document.write(data);
+        w.document.close();
+    });
 }
 
 // called on page load
