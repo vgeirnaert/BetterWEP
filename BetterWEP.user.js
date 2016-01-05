@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BetterWEP
 // @namespace    http://emakina.nl
-// @version      0.1.4
+// @version      0.1.5
 // @description  Makes naviwep less terrible
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
@@ -12,6 +12,7 @@
 // ==/UserScript==
 
 var characterLimit = 50;
+var bottomTableRow = null;
 
 function betterWep() {
     // initialise
@@ -27,6 +28,11 @@ function betterWep() {
     $('#betterWep_form').append('<button id="betterWep_add">Add line</button>');
     $('#betterWep_add').click(betterWep_add);*/
     
+    var tableBottom = $('#ContentDiv table.MainTable tbody tr th').first().parent().prev();
+    bottomTableRow = $('<tr><td colspan="7"><input type="text" id="inlineTaskName" name="inlineTaskName"><input type="button" value="Add" id="inlineTaskButton"></td></tr>');
+    tableBottom.after(bottomTableRow);
+    
+    
     // add character limit textbox
     $('#MainDiv').append('Character limit: <input type="number" id="charlimit" value="50" name="charlimit" size="4">');
     // bind onchange events
@@ -35,9 +41,15 @@ function betterWep() {
         setCharacterLimit();
         checkAllTextAreas();
     });
+    
     $('textarea').on('change keydown', function(e) {
         console.log("textarea changed");
         checkTextArea($(this));
+    });
+    
+    // add new row onclick event
+    $('#inlineTaskButton').on('click', function(e) {
+        findTask();
     });
 }
 
@@ -67,8 +79,10 @@ function checkTextArea(textArea) {
     } 
 }
 
-function betterWep_add() {
-    alert('woei');
+function findTask() {
+    var code = $('#inlineTaskName').val();
+    var element = $('<tr><td colspan="7">' + code + '</td></tr>');
+    bottomTableRow.before(element);
 }
 
 // called on page load
