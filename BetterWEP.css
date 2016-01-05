@@ -1,3 +1,7 @@
 textarea {
 	height: 2em;
 }
+
+.limit_exceeded {
+	color: #FF6666;
+}
