@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BetterWEP
 // @namespace    http://emakina.nl
-// @version      0.1.3
+// @version      0.1.4
 // @description  Makes naviwep less terrible
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
@@ -28,15 +28,14 @@ function betterWep() {
     $('#betterWep_add').click(betterWep_add);*/
     
     // add character limit textbox
-    $('#MainDiv').append('<input type="number" id="charlimit" value="50" name="charlimit">');
-    
+    $('#MainDiv').append('Character limit: <input type="number" id="charlimit" value="50" name="charlimit" size="4">');
     // bind onchange events
     $('#charlimit').on('change', function(e) {
         console.log("charlimit changed");
         setCharacterLimit();
         checkAllTextAreas();
     });
-    $('textarea').on('change', function(e) {
+    $('textarea').on('change keydown', function(e) {
         console.log("textarea changed");
         checkTextArea($(this));
     });
@@ -46,10 +45,10 @@ function setCharacterLimit() {
     characterLimit = $('#charlimit').val();
     
     if(characterLimit === '' || characterLimit < 1) {
-        charLimit = 50;
+        characterLimit = 50;
     }
     
-    console.log("character limit set to: " + charLimit);
+    console.log("character limit set to: " + characterLimit);
 }
 
 function checkAllTextAreas() {
