@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BetterWEP
 // @namespace    http://emakina.nl
-// @version      0.1.2
+// @version      0.1.3
 // @description  Makes naviwep less terrible
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
@@ -27,12 +27,17 @@ function betterWep() {
     $('#betterWep_form').append('<button id="betterWep_add">Add line</button>');
     $('#betterWep_add').click(betterWep_add);*/
     
+    // add character limit textbox
     $('#MainDiv').append('<input type="number" id="charlimit" value="50" name="charlimit">');
-    $('#charlimit').on('onchange', function(e) {
+    
+    // bind onchange events
+    $('#charlimit').on('change', function(e) {
+        console.log("charlimit changed");
         setCharacterLimit();
         checkAllTextAreas();
     });
-    $('textarea').on('onchange', function(e) {
+    $('textarea').on('change', function(e) {
+        console.log("textarea changed");
         checkTextArea($(this));
     });
 }
@@ -43,6 +48,8 @@ function setCharacterLimit() {
     if(characterLimit === '' || characterLimit < 1) {
         charLimit = 50;
     }
+    
+    console.log("character limit set to: " + charLimit);
 }
 
 function checkAllTextAreas() {
@@ -52,7 +59,9 @@ function checkAllTextAreas() {
 }
 
 function checkTextArea(textArea) {
-   if(textArea.val().length > characterLimit) {
+    console.log("checking textarea");
+    
+    if(textArea.val().length > characterLimit) {
         textArea.addClass('limit_exceeded');
     } else {
         textArea.removeClass('limit_exceeded');
