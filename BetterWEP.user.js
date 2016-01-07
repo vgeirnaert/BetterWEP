@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BetterWEP
 // @namespace    http://emakina.nl
-// @version      0.1.6
+// @version      0.1.7
 // @description  Makes naviwep less terrible
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
@@ -23,7 +23,7 @@ function betterWep() {
     
     // add search box to bottom row
     var tableBottom = $('#ContentDiv table.MainTable tbody tr th').first().parent().prev();
-    bottomTableRow = $('<tr><td colspan="7"><input type="text" id="inlineTaskName" name="inlineTaskName"><input type="button" value="Add" id="inlineTaskButton"></td></tr>');
+    bottomTableRow = $('<tr><td colspan="7"><form id="inlineTaskForm" style="float: left;"><input type="text" id="inlineTaskName" name="projectIndex"></form><input type="button" value="Add" id="inlineTaskButton"></td></tr>');
     tableBottom.after(bottomTableRow);
     
     // add character limit textbox
@@ -74,10 +74,10 @@ function checkTextArea(textArea) {
 }
 
 function findTask() {
-    var code = $('#inlineTaskName').val();
+    var code = $('#inlineTaskForm').serialize();
 
     // open search results in popup window
-    $.post("https://naviweb.emakina.nl/registration/reg_activity_project_search.asp", "projectIndex="+code+"&Submit1=Search").done(function (data) {
+    $.post("https://naviweb.emakina.nl/registration/reg_activity_project_search.asp", code+"&Submit1=Search").done(function (data) {
         var w = window.open('about:blank', 'windowname', 'fullscreen=no, height=500, width=1200, menubar=no, resizable=yes, toolbar=no');
         w.document.write(data);
         w.document.close();
