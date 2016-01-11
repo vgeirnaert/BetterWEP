@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BetterWEP
 // @namespace    http://emakina.nl
-// @version      0.1.7
+// @version      0.1.8
 // @description  Makes naviwep less terrible
 // @author       Valentijn
 // @match        https://naviweb.emakina.nl/*
@@ -45,6 +45,8 @@ function betterWep() {
     $('#inlineTaskButton').on('click', function(e) {
         findTask();
     });
+    
+    checkAllTextAreas();
 }
 
 function setCharacterLimit() {
