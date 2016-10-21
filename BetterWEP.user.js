@@ -96,31 +96,31 @@ var NaviWEPApi = function(url) {
 
 	var PROJECTS_SEARCH_PAGE = "/registration/reg_activity_project_search.asp";
 
-	var init = function(url) {
-		this.baseUrl = url;
+	var initialize = function(url) {
+		baseUrl = url;
 	};
 
 	var getProjectsList = function(keyword, pageNumber) {
-		var page = this.getNaviWEPProjectsPage(keyword, pageNumber);
+		var page = getNaviWEPProjectsPage(keyword, pageNumber);
 
-		var projects = this.getProjectsFromNaviWEPPage(page);
+		var projects = getProjectsFromNaviWEPPage(page);
 
-		if(this.naviWEPProjectsPageHasNext(page)) {
-			projects.concat(this.getProjectsList(keyword, pageNumber + 1));
+		if(naviWEPProjectsPageHasNext(page)) {
+			projects.concat(getProjectsList(keyword, pageNumber + 1));
 		}
 
 		return projects;
 	};
 
 	var getNaviWEPProjectsPage = function(keyword, pageNumber) {
-		var url = this.baseUrl + this.PROJECTS_SEARCH_PAGE;
+		var url = baseUrl + PROJECTS_SEARCH_PAGE;
 		$.post(url, {ProjectIndex:keyword, DisplayPage:pageNumber}).done(function(data) {
 			console.log(data);
 		});
 	};
 
 	var naviWEPProjectsPageHasNext = function(page) {
-
+		return false;
 	};
 
 	var getProjectsFromNaviWEPPage = function(page) {
@@ -129,14 +129,19 @@ var NaviWEPApi = function(url) {
 
 
 	return {
-		init: function(url) {
-			this.init(url);
+        url: url,
+		init: function() {
+			initialize(this.url);
 		},
 		searchProjects: function(keyword) {
-			this.getProjectsList(keyword, 1);
+			getProjectsList(keyword, 1);
 		},
 		addProject: function(project) {
 
 		}
 	};
 };
+
+var lolapi = NaviWEPApi("https://naviweb.emakina.nl");
+lolapi.init();
+lolapi.searchProjects("NL-");
