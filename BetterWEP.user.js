@@ -8,7 +8,7 @@
 // @grant        GM_addStyle
 // @grant        GM_getResourceText
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
-// @require      BetterWEP.api.js
+// @require      https://raw.githubusercontent.com/vgeirnaert/BetterWEP/master/BetterWEP.api.js
 // @resource     betterWEP_css https://raw.githubusercontent.com/vgeirnaert/BetterWEP/master/BetterWEP.css
 // ==/UserScript==
 
