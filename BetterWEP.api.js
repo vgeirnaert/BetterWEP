@@ -7,7 +7,7 @@ var NaviWEPApi = function(url) {
 		this.baseUrl = url;
 	};
 
-	var getProjectsList: function(keyword, pageNumber) {
+	var getProjectsList = function(keyword, pageNumber) {
 		var page = this.getNaviWEPProjectsPage(keyword, pageNumber);
 
 		var projects = this.getProjectsFromNaviWEPPage(page);
@@ -19,18 +19,18 @@ var NaviWEPApi = function(url) {
 		return projects;
 	};
 
-	var getNaviWEPProjectsPage: function(keyword, pageNumber) {
+	var getNaviWEPProjectsPage = function(keyword, pageNumber) {
 		var url = this.baseUrl + this.PROJECTS_SEARCH_PAGE;
 		$.post(url, {ProjectIndex:keyword, DisplayPage:pageNumber}).done(function(data) {
 			console.log(data);
 		});
 	};
 
-	var naviWEPProjectsPageHasNext: function(page) {
+	var naviWEPProjectsPageHasNext = function(page) {
 
 	};
 
-	var getProjectsFromNaviWEPPage: function(page) {
+	var getProjectsFromNaviWEPPage = function(page) {
 
 	};
 
